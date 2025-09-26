@@ -1845,7 +1845,7 @@
     clsx "^2.1.0"
     prop-types "^15.8.1"
 
-"@mui/material@^7.2.0":
+"@mui/material@^7.3.2":
   version "7.3.2"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-7.3.2.tgz#21ad66bba695e2cd36e4a93e2e4ff5e04d8636a1"
   integrity sha512-qXvbnawQhqUVfH1LMgMaiytP+ZpGoYhnGl7yYq2x57GYzcFL/iPzSZ3L30tlbwEjSVKNYcbiKO8tANR1tadjUg==
