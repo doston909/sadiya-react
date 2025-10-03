@@ -322,7 +322,7 @@ export default function Footer() {
           </Stack>
         </Stack>
         <Stack
-          style={{ border: "1px solid #C5C8C9", width: "100%", opacity: "0.2" }}
+          style={{ border: "2px solid #0a0a0aff", width: "100%", opacity: "0.2" }}
           sx={{ mt: "80px" }}
         ></Stack>
         <Stack className={"copyright-txt"}>
