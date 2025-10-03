@@ -2,7 +2,7 @@
     width: 100%;
     height: 773px;
     display: flex;
-    background: url("/public/img/banner.webp");
+    background: url("/public/img/shop.jpg");
     background-size: cover;
 }
 
@@ -20,8 +20,9 @@
 }
 
 .home-navbar .navbar-container .menu .brand-logo {
+    margin-top: 100px;
     width: 125px;
-    height: 30px;
+    height: 125px;
 }
 
 .home-navbar .navbar-container .menu .links {
@@ -32,16 +33,43 @@
     align-items: center;
 }
 .home-navbar .navbar-container .menu .links .login-button {
-    background: #3776CC;
-    color: #f8f8ff;
+  /* From Uiverse.io by barisdogansutcu */ 
+
+  padding: 17px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
 }
+
+.home-navbar .navbar-container .menu .links button:hover {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+button:active {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+
 
 .home-navbar .navbar-container .menu .user-avatar {
     width: 50px; 
     height: 50px;
     border-radius: 24px;
 }
-
 
 .home-navbar a {
     text-decoration: none;
@@ -72,4 +100,105 @@
 
 .home-navbar div.hover-line:after {
     transform-origin: 0% 50%;
+}
+
+.home-navbar .navbar-container .header-frame {
+    margin-top: 142px;
+    height: 462px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.home-navbar .navbar-container .header-frame .detail {
+    width: 510px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-navbar .navbar-container .header-frame .detail .head-main-txt {
+    width: 450px;
+    height: 150px;
+    font-family: "Roboto Serif";
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.75px;
+    color: #f8f8ff;
+}
+
+.home-navbar .navbar-container .header-frame .detail .wel-txt {
+    width: 510px;
+    height: 42px;
+    font-family: "Roboto Serif";
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.54px;
+    color: #d7b686;
+}
+
+.home-navbar .navbar-container .header-frame .detail .service-txt {
+    margin-top: 23px;   
+    width: 153px;
+    height: 23px;
+    font-family: "Roboto Serif";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.3px;
+    color: #d5d5d5;
+}
+
+.home-navbar .navbar-container .detail .signup {
+    margin-top: 73px; 
+}
+
+.home-navbar .navbar-container .detail .signup .signup-button {
+    /* From Uiverse.io by barisdogansutcu */ 
+  padding: 17px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  background-color: #3636E2;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+}
+
+.home-navbar .navbar-container .detail .signup button:hover {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+.home-navbar .navbar-container .detail .signup button:active {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+
+.home-navbar .navbar-container .logo-frame {
+    margin-top: 43px;
+    width: 690px;
+    height: 419px;
+}
+
+.home-navbar .navbar-container .logo-frame {
+    width: 100%;
+    height: 100%;
+   
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(25%);
 }
