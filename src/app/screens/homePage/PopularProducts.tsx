@@ -23,66 +23,69 @@ export default function PopularProducts() {
         <Stack className="popular-section">
           <Box className="category-title">Popular Products</Box>
           <Stack className="cards-frame">
-            {list.map((ele, index) => {
-              return (
-                <CssVarsProvider key={index}>
-                  <Card className={"card"}>
-                    <CardCover>
-                      <img src={ele.imagePath} alt="" />
-                    </CardCover>
-                    <CardCover className={"card-cover"} />
-                    <CardContent sx={{ justifyContent: "flex-end" }}>
-                      <Stack
-                        flexDirection="row"
-                        justifyContent="space-between" // ikki element orasini to‘liq ochadi
-                        alignItems="center" // vertikal markazlash
-                        gap="20px"
-                      >
-                        <Typography
-                          level="h2"
-                          fontSize="lg"
-                          textColor="#fff"
-                          sx={{ fontWeight: "md"
-                          }} // mb olib tashlandi
+            {list.length !== 0 ? (
+              list.map((ele, index) => {
+                return (
+                  <CssVarsProvider key={index}>
+                    <Card className={"card"}>
+                      <CardCover>
+                        <img src={ele.imagePath} alt="" />
+                      </CardCover>
+                      <CardCover className={"card-cover"} />
+                      <CardContent sx={{ justifyContent: "flex-end" }}>
+                        <Stack
+                          flexDirection="row"
+                          justifyContent="space-between" // ikki element orasini to‘liq ochadi
+                          alignItems="center" // vertikal markazlash
+                          gap="20px"
                         >
-                          {ele.productName}
-                        </Typography>
+                          <Typography
+                            level="h2"
+                            fontSize="lg"
+                            textColor="#fff"
+                            sx={{ fontWeight: "md" }} // mb olib tashlandi
+                          >
+                            {ele.productName}
+                          </Typography>
 
-                        <Typography
-                          sx={{
-                            fontWeight: "md",
-                            color: "neutral.300",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "10px", // icon bilan text orasiga bo‘shliq
-                          }}
-                        >
-                          20
-                          <VisibilityIcon sx={{ fontSize: 25 }} />
-                        </Typography>
-                      </Stack>
-                    </CardContent>
-                    <CardOverflow
-                      sx={{
-                        display: "flex",
-                        gap: 1.5,
-                        py: 1.5,
-                        px: "var(--Card-padding)",
-                        borderTop: "1px solid",
-                        height: "6-px",
-                      }}
-                    >
-                      <Typography
-                        startDecorator={<DescriptionOutlinedIcon />}
-                        textColor="neutral.300"
+                          <Typography
+                            sx={{
+                              fontWeight: "md",
+                              color: "neutral.300",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "10px", // icon bilan text orasiga bo‘shliq
+                            }}
+                          >
+                            20
+                            <VisibilityIcon sx={{ fontSize: 25 }} />
+                          </Typography>
+                        </Stack>
+                      </CardContent>
+                      <CardOverflow
+                        sx={{
+                          display: "flex",
+                          gap: 1.5,
+                          py: 1.5,
+                          px: "var(--Card-padding)",
+                          borderTop: "1px solid",
+                          height: "6-px",
+                        }}
                       >
-                        best-selling
-                      </Typography>
-                    </CardOverflow>
-                  </Card>
-                </CssVarsProvider>
-              );
-            })}
+                        <Typography
+                          startDecorator={<DescriptionOutlinedIcon />}
+                          textColor="neutral.300"
+                        >
+                          best-selling
+                        </Typography>
+                      </CardOverflow>
+                    </Card>
+                  </CssVarsProvider>
+                );
+              })
+            ) : (
+              <Box className="no-data">Popular products are not available!</Box>
+            )}
           </Stack>
         </Stack>
       </Container>

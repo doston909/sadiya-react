@@ -59,7 +59,6 @@ export default function NewProducts() {
                             ) : (
                                 <Box className="no-data">New products are not aviable</Box>
                             )}
-
                         </CssVarsProvider>
                     </Stack>
                 </Stack>
