@@ -3,7 +3,7 @@ import Card from "@mui/joy/Card";
 import { CssVarsProvider, Typography } from "@mui/joy";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
-import "../../../css/home.css"; // ✅ to‘g‘ri yo‘l
+
 
 const activeUsers = [
   { memberNick: "Dostonbek", memberImage: "img/martin.webp" },
@@ -24,7 +24,23 @@ export default function ActiveUsers() {
               <CssVarsProvider>
                 {activeUsers.length ? (
                   activeUsers.map((ele, index) => (
-                    <Card key={index} variant="outlined" className="card">
+                    <Card
+  key={index}
+  variant="outlined"
+  className="card"
+  sx={{
+    backgroundColor: "transparent !important", // 🔹 default holatda
+    transition: "none !important",
+    transform: "none !important",
+    boxShadow: "none !important",
+    "&:hover": {
+      backgroundColor: "transparent !important", // 🔹 hover paytida ham
+      transform: "none !important",
+      boxShadow: "none !important",
+    },
+  }}
+>
+
                       <CardOverflow>
                         <AspectRatio ratio="1">
                           <img src={ele.memberImage} alt={ele.memberNick} />

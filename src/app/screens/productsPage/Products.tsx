@@ -26,7 +26,7 @@ export default function Products() {
     <Container>
       <Stack flexDirection={"column"} alignItems={"center"}>
         <Stack className="avatar-big-box">
-          <Box className="product-title">Burak Restaran</Box>
+          <Box className="product-title">Sadiya Cosmetics</Box>
           <Box className="product-info" >
             <TextField
               className="product-type"
@@ -112,7 +112,7 @@ export default function Products() {
                       className="product-img"
                       sx={{ backgroundImage: `url(${product.imagePath})` }}
                     >
-                      <div className="product-sale">NORMAL size</div>
+                      <div className="product-sale">QUALITY</div>
                       <div className="btn-vs-view">
                       <Button className="shop-btn">
                         <img className="shop-btn-img"

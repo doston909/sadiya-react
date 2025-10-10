@@ -2,7 +2,7 @@
     width: 100%;
     height: 773px;
     display: flex;
-    background: url("/public/img/shop.jpg");
+    background: url("/public/img/asosiy.webp");
     background-size: cover;
 }
 
@@ -63,6 +63,21 @@ button:active {
   transition: 100ms;
 }
 
+.home-navbar .hover-line {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 15px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.home-navbar .hover-line:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.03);
+}
+
+
 
 
 .home-navbar .navbar-container .menu .user-avatar {
@@ -76,8 +91,12 @@ button:active {
 }
 
 .home-navbar .hover-line a {
-    color: #f8f8ff;
-    z-index: 100;
+  font-size: 20px;       /* 👈 Matn o‘lchami */
+  font-weight: 500;      /* Ixtiyoriy */
+  font-family: "Poppins", sans-serif;  /* Ixtiyoriy */
+  color: #0e0e64;        /* Sizning rangingiz */
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .home-navbar .underline {
@@ -207,7 +226,7 @@ button:active {
     width: 200pxpx;
     height: 400px;
     display: flex;
-    background: url("/public/img/shop.jpg");
+    background: url("/public/img/fon44.jpg");
     background-size: cover;
 }
 
@@ -275,9 +294,22 @@ button:active {
     text-decoration: none;
 }
 
+.other-navbar .hover-line {
+   background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 15px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
 .other-navbar .hover-line a {
-    color: #f8f8ff;
-    z-index: 100;
+    font-size: 20px;       /* 👈 Matn o‘lchami */
+  font-weight: 500;      /* Ixtiyoriy */
+  font-family: "Poppins", sans-serif;  /* Ixtiyoriy */
+  color: #0e0e64;        /* Sizning rangingiz */
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .other-navbar .underline {

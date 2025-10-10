@@ -1,7 +1,10 @@
 .homepage {
-    width: 100%;
-    height: auto;
+  width: 100%;
+   /* butun ekran balandlikda */
 }
+
+
+
 
 /** STATISTICS **/
 
@@ -9,7 +12,7 @@
    width: 100%;
    height: 200px;
    border-radius: 300px;
-   background: linear-gradient(to bottom, #e8e4e4 0%, #e3a9a9 100%);
+   
 }
 
 
@@ -54,9 +57,9 @@
 
 .homepage .popular-dishes-frame {
    width: 100%;
-   height: 580px;
+   height: 700px;
    display: flex;
-   background: linear-gradient(to bottom, #f7f5f6 0%, #d767c5 100%);
+  
 }
 
 .homepage .popular-dishes-frame .popular-section {
@@ -122,161 +125,67 @@
 }
 
 
-
-
-/* NewDishes */
-.new-products-frame {
-    width: 100%;
-    height: 605px;
-    display: flex;
-    background: #3f3fe0;
-}
-
- .main {
-    margin-top: 45px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.new-products-frame .category-title {
-    width: 100%;
-    height: 100px;
-    text-align: center;
-    font-family: "Dancing Script";
-    font-style: normal;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 43px;
-}
-
-.new-products-frame .main .cards-frame {
-    width: 100%;
-    margin: 47px 2px 2px 2px;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.new-products-frame .main .card {
-    height: 335px;
-    width: 290px;
-    cursor: pointer;
-}
-
-.new-products-frame .product-sale {
-    position: absolute;
-    margin-top: 10px;
-    z-index: 100;
-    width: 90px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ff9200;
-    
-    border-radius: 25px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 21px;
-    color: #f8f8ff;
-
-}
-
-.new-products-frame .product-detail {
-    width: auto;
-    height: 49px;
-    display: flex;
-    justify-content: center;
-    margin-top: -12px;
-    border-top: 1px solid;
-    border-color: #f8f8ff;
-    background-color: #fafbfb;
-}
-
-.new-products-frame .product-detail .info {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.new-products-frame .product-detail .title {
-    width: 65px;
-    font-weight: 500;
-}
-
-.new-products-frame .product-detail .price {
-    margin-left: 10px;
-    width: 20px;
-    font-weight: 500;
-}
-
-.new-products-frame .product-detail .divider {
-    margin: 0 10px 0 10px;
-    width: 2px;
-    background-color: #d9d9d9;
-}
-
-.new-products-frame .product-detail .views {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-}
-
-.new-products-frame .no-data {
-    width: 100%;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-transform: capitalize;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 34px;
-    color: #e3c08d;
-}
-
 /** ADVERTISEMENT **/
 
+/* === ADVERTISEMENT === */
 .homepage .ads-restaurant-frame {
-    width: 100%;
-    height: 693px;
-    display: flex;
-    overflow: hidden;
-    transform: perspective(0px);
-    box-shadow: -3px 0px 20px 14px #34343480;
+  position: relative;
+  width: 100%;
+  height: 600px; /* butun ekran bo‘ylab */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -3px 0px 20px 14px #34343480;
+  z-index: 0;
 }
 
+/* Video o‘zi */
 .homepage .ads-restaurant-frame .ads-video {
-    width: 100%;
-    background: #0c0e12;
-    display: flex;
-    box-shadow: 0px -8px 90px rgb(215 215 255);
-    transform: scale(1.5);
-    overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 600px;
+  object-fit: cover; /* proporsiyani saqlaydi, ekran o‘lchamiga moslashadi */
+  object-position: center; /* markazga joylashadi */
+  z-index: -1;
+  transition: all 0.4s ease-in-out; /* yumshoq resizing effekti */
 }
+
+/* === RESPONSIVE (kichik ekranlar uchun) === */
+@media (max-width: 768px) {
+  .homepage .ads-restaurant-frame {
+    height: 60vh; /* kichik ekranlarda balandlikni kamaytir */
+  }
+
+  .homepage .ads-restaurant-frame .ads-video {
+    object-fit: contain; /* video to‘liq sig‘sin */
+    background-color: black; /* bo‘sh joylarda qora fon */
+  }
+}
+
+
+
 
 /** ACTIVE USERS **/
 
-.homepage {
-  width: 100%;
-  height: auto;
-}
-
 .homepage .active-users-frame {
   width: 100%;
-  height: 605px;
-  background: #d36ccb;
+  height: 745px;
   display: flex;
+ 
+
+  /* 🔽 Yengil shaffof qatlam */
+  background: rgba(231, 181, 248, 0.35); /* #9d6ba7 ning yarim shaffof varianti */
+
+  /* 🔽 Blur effekti */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Safari uchun */
+
+  /* 🔽 Optional — ichidagi elementlar ko‘rinsin */
+ 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .homepage .active-users-frame .main {
@@ -288,19 +197,19 @@
 }
 
 .homepage .active-users-frame .main .category-title {
-    margin-top: 50px;
-    width: 100%;
-    height: 100px;
-    text-align: center;
-    font-family: "Dancing Script";
-    font-style: normal;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 43px;
+  margin-top: 70px;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  font-family: "Dancing Script";
+  font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 43px;
 }
 
 .homepage .active-users-frame .cards-frame {
@@ -311,7 +220,9 @@
   gap: 20px;
 }
 
+/* === CARD === */
 .homepage .active-users-frame .main .card {
+  position: relative;                /* 🔹 kerak */
   height: 300px;
   width: 300px;
   display: flex;
@@ -319,17 +230,93 @@
   align-items: center;
   cursor: pointer;
   border-radius: 20px;
-  
+  overflow: hidden;                  /* 🔹 blur tashqariga chiqmasin */
+  transition: none;
+  transform: none;
+  box-shadow: none;
+  backdrop-filter: none;
 }
+
+
+/* === MEMBER NAME === */
 
 .homepage .active-users-frame .main .member-nickname {
+  position: absolute;                /* rasm ustiga joylashadi */
+  bottom: 0;                         /* pastdan boshlanadi */
+  left: 0;
+  width: 100%;                       /* kartaning pastki qismini to‘liq egallaydi */
+  height: 12%;                       /* pastki 1/4 qism */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-size: 18px;
   font-weight: 500;
-  color: #333;
-  margin-bottom: 50px;
+  color: #fff;
+
+  /* 🔽 blur panel effekti */
+  background: rgba(0, 0, 0, 0.35);   /* qoramtir shaffof qatlam */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-left-radius: 20px;   /* pastki burchaklarni moslashtir */
+  border-bottom-right-radius: 20px;
+}
+
+/* === OUR SERVICE === */
+.homepage .our-service-frame {
+  width: 100%;
+  min-height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.homepage .our-service-main .category-title {
+  font-family: "Roboto Serif";
+  font-size: 36px;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+}
+
+.homepage .our-service-main .service-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 30px;
+  width: 350px;
+  height: 400px; /* biroz katta bo‘lsin */
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap:5px;
 }
 
 
+.homepage .our-service-main .service-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.homepage .our-service-main .service-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+}
+
+.homepage .our-service-main .service-desc {
+  font-size: 18px;
+  color: #444;
+}
 
 
 /** EVENTS **/
@@ -337,9 +324,14 @@
 .homepage .events-frame {
   width: 100%;
   height: 745px;
-  background: #9d6ba7;
   display: flex;
+  background: rgba(157, 107, 167, 0.35); /* #9d6ba7 ning yarim shaffof varianti */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Safari uchun */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
+
 
 .homepage .events-frame .category-title {
   font-family: "Dancing Script";
@@ -519,3 +511,5 @@
   background: #343434;
   border-radius: 50%;
 }
+
+

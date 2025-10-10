@@ -6,14 +6,16 @@ export default function HomeNavbar() {
     const authMember = null;
     return <div className="home-navbar">
         <Container className="navbar-container">
-        <Stack className="menu">
+        <Stack
+  className="menu"
+  >
          <Box>
                 <NavLink to="/">
                 <img className="brand-logo" src="/icons/sadiya.jpeg"/>
                 </NavLink>
          </Box>
          <Stack className="links">
-         <Box className={"hover-line"}>
+         <Box className={"hover-line"} >
                 <NavLink to="/" activeClassName={"underline"}>
                 Home
                 </NavLink>

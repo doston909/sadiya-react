@@ -15,7 +15,7 @@ const light = {
 		},
 		primary: {
 			contrastText: 'rgba(255, 252, 248, 1)',
-			main: '#a8e3ecff',
+			main: '#3713d8ff',
 		},
 		secondary: {
 			contrastText: '#343434',

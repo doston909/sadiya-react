@@ -8,7 +8,7 @@ const Footers = styled.div`
   width: 100%;
   height: 590px;
   display: flex;
-  background: #f6d5cdff;
+  background: #bcf9efff;
   background-size: cover;
 `;
 
@@ -20,7 +20,21 @@ export default function Footer() {
       <Container>
         <Stack flexDirection={"row"} sx={{ mt: "50px" }}>
           <Stack flexDirection={"column"} style={{ width: "340px" }}>
-            <div className="card-social">
+             <Box sx={{
+    width: 200,
+    height: 100,
+    backgroundImage: 'url("/img/sadiiyya.png")',
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    borderRadius: "50%",
+  }}></Box>
+
+            <Box className={"foot-desc-txt"}>
+              Focusing on natural beauty and modern skincare, Sadiya Cosmetic aims to bring confidence and elegance back to every woman.
+With a perfect harmony of science and nature, Sadiya Cosmetic creates a unique experience that highlights your natural glow.
+            </Box> <hr></hr><hr></hr>
+           
+  <div className="card-social">
               <span>Social</span>
               <a className="social-link"
               href="https://t.me/sadiyakoreakosmetik"
@@ -120,12 +134,6 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
-
-            <Box className={"foot-desc-txt"}>
-              Focusing on the gourmet Turkish breakfast as well as the youth
-              society, CZN Burak Gurme aims to bring Turkish cuisine back. CZN
-              Burak Gurme creates an ilecbvrvkvehlusion with its cuisine.
-            </Box>
           </Stack>
           <Stack sx={{ ml: "288px" }} flexDirection={"row"}>
             <Stack>
@@ -175,7 +183,7 @@ export default function Footer() {
             width: "100%",
             opacity: "0.2",
           }}
-          sx={{ mt: "80px" }}
+          sx={{ mt: "30px" }}
         ></Stack>
         <Stack className={"copyright-txt"}>
           © Copyright Devex Global, All rights reserved.
