@@ -22,7 +22,7 @@ export default function HomeNavbar() {
   const buttonHandler = () => {
     setvalue(!value);
   };
-  return;
+  return(
   <div className="home-navbar">
     <Container className="navbar-container">
       <Stack className="menu">
@@ -97,7 +97,8 @@ export default function HomeNavbar() {
         </Box>
       </Stack>
     </Container>
-  </div>;
+  </div>
+  );
 }
 
 function setCount(arg0: any) {

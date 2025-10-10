@@ -1,28 +1,37 @@
 export enum ProductSize {
-    SMALL = "SMALL",
+     MINI = "MINI",
     NORMAL = "NORMAL",
-    LARGE = "LARGE",
-    SET = "SET"
+    BIG = "BIG",
+    SET = "SET",
+    PCS = "PCS"
 }
 
 export enum ProductVolume {
+    HALF_MINI = 0.3,
     HALF = 0.5,
     ONE = 1,
     ONE_POINT_TWO = 1.2,
     ONE_POINT_FIVE = 1.5,
-    TWO = 2
+    ONR_POINT_EIGHT = 1.8,
+    TWO = 2,
+}
+
+export enum productCourse {
+    MONTH = 1,
+    TWO_MONTH = 2,
+    THREE_MONTH = 3,
 }
 
 export enum ProductStatus {
     PAUSE = "PAUSE",
-    PROCESS = "PROCESS",
+    PROCESS = "BUYING",
     DELETE = "DELETE",
 }
 
 export enum ProductCollection {
-    DISH = "DISH",
-    SALAD = "SALAD",
-    DESSERT = "DESSERT",
-    DRINK = "DRINK",
-    OTHER = "OTHER",
+    CREAM = "CREAM",
+    SPRAY = "SPRAY",
+    COLLAGEN = "COLLAGEN",
+    VITAMIN = "VITAMIN",
+    CLEANSING = "CLEANSING",
 }

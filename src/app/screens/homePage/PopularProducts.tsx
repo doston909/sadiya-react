@@ -9,27 +9,34 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DescriptionOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
 
-const list = [
-  { productName: "Lavash", imagePath: "img/lavash.webp" },
-  { productName: "Katlet", imagePath: "img/cutlet.webp" },
-  { productName: "Kebab", imagePath: "img/kebab.webp" },
-  { productName: "Kebab", imagePath: "img/kebab-fresh.webp" },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrievePopularProducts } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
 
+const popularProductsRetriever = createSelector(
+  retrievePopularProducts,
+  ( popularProducts ) => ({ popularProducts })
+);
 export default function PopularProducts() {
+
+    const { popularProducts } = useSelector(popularProductsRetriever);
+
   return (
     <div className="popular-dishes-frame">
       <Container>
         <Stack className="popular-section">
           <Box className="category-title">Popular Products</Box>
           <Stack className="cards-frame">
-            {list.length !== 0 ? (
-              list.map((ele, index) => {
+            {popularProducts.length !== 0 ? (
+              popularProducts.map((product: Product) => {
+                const imagePath = `${serverApi}/${product.productImages[0]}`;
                 return (
-                  <CssVarsProvider key={index}>
+                  <CssVarsProvider key={product._id}>
                     <Card className={"card"}>
                       <CardCover>
-                        <img src={ele.imagePath} alt="" />
+                        <img src={imagePath} alt="" />
                       </CardCover>
                       <CardCover className={"card-cover"} />
                       <CardContent sx={{ justifyContent: "flex-end" }}>
@@ -45,7 +52,7 @@ export default function PopularProducts() {
                             textColor="#fff"
                             sx={{ fontWeight: "md" }} // mb olib tashlandi
                           >
-                            {ele.productName}
+                            {product.productName}
                           </Typography>
 
                           <Typography
@@ -57,7 +64,7 @@ export default function PopularProducts() {
                               gap: "10px", // icon bilan text orasiga bo‘shliq
                             }}
                           >
-                            20
+                           {product.productViews}
                             <VisibilityIcon sx={{ fontSize: 25 }} />
                           </Typography>
                         </Stack>
@@ -76,7 +83,7 @@ export default function PopularProducts() {
                           startDecorator={<DescriptionOutlinedIcon />}
                           textColor="neutral.300"
                         >
-                          best-selling
+                         {product.productDesc}
                         </Typography>
                       </CardOverflow>
                     </Card>
