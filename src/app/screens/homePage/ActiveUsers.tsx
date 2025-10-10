@@ -1,22 +1,39 @@
+import React, { useEffect } from "react";
 import { Box, Container, Stack } from "@mui/material";
 import Card from "@mui/joy/Card";
 import { CssVarsProvider, Typography } from "@mui/joy";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
-
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { retrieveTopUsers } from "./selector";
+import { setTopUsers } from "./slice";
+import MemberService from "../../services/MemberService";
 import { serverApi } from "../../../lib/config";
 import { Member } from "../../../lib/types/member";
 
 /** REDUX SLICE & SELECTOR **/
+const actionDispatch = (dispatch: Dispatch) => ({
+  setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)),
+});
+
 const topUsersRetriever = createSelector(retrieveTopUsers, (topUsers) => ({
   topUsers,
 }));
 
 export default function ActiveUsers() {
+  const { setTopUsers } = actionDispatch(useDispatch());
   const { topUsers } = useSelector(topUsersRetriever);
+
+  useEffect(() => {
+    const memberService = new MemberService();
+    memberService
+      .getTopUsers()
+      .then((data) => setTopUsers(data))
+      .catch((err) => console.log("Top users error:", err));
+  }, []);
+
   return (
     <div className={"active-users-frame"}>
       <Container>
@@ -55,4 +72,3 @@ export default function ActiveUsers() {
     </div>
   );
 }
-

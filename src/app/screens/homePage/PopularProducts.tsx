@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container, Stack } from "@mui/material";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
@@ -9,20 +9,38 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DescriptionOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrievePopularProducts } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
+import ProductService from "../../services/ProductService";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setPopularProducts } from "./slice";
 
 const popularProductsRetriever = createSelector(
   retrievePopularProducts,
-  ( popularProducts ) => ({ popularProducts })
+  (popularProducts) => ({ popularProducts })
 );
+
+const actionDispatch = (dispatch: Dispatch) => ({
+  setPopularProducts: (data: Product[]) => dispatch(setPopularProducts(data)),
+});
 export default function PopularProducts() {
+  // 1. Redux dispatch va selector
+  const { setPopularProducts } = actionDispatch(useDispatch());
+  const { popularProducts } = useSelector(popularProductsRetriever);
 
-    const { popularProducts } = useSelector(popularProductsRetriever);
+  // 2. 🟢 useEffect shu yerda bo‘ladi
+  useEffect(() => {
+    const productService = new ProductService();
+    productService
+      .getPopularProducts()
+      .then((data) => setPopularProducts(data))
+      .catch((err) => console.log("Popular products error:", err));
+  }, []); // ← faqat 1 marta ishlaydi (component mount bo‘lganda)
 
+  // 3. return qismi pastda
   return (
     <div className="popular-dishes-frame">
       <Container>
@@ -30,7 +48,7 @@ export default function PopularProducts() {
           <Box className="category-title">Popular Products</Box>
           <Stack className="cards-frame">
             {popularProducts.length !== 0 ? (
-              popularProducts.map((product: Product) => {
+              popularProducts.map((product) => {
                 const imagePath = `${serverApi}/${product.productImages[0]}`;
                 return (
                   <CssVarsProvider key={product._id}>
@@ -38,60 +56,19 @@ export default function PopularProducts() {
                       <CardCover>
                         <img src={imagePath} alt="" />
                       </CardCover>
-                      <CardCover className={"card-cover"} />
-                      <CardContent sx={{ justifyContent: "flex-end" }}>
-                        <Stack
-                          flexDirection="row"
-                          justifyContent="space-between" // ikki element orasini to‘liq ochadi
-                          alignItems="center" // vertikal markazlash
-                          gap="20px"
-                        >
-                          <Typography
-                            level="h2"
-                            fontSize="lg"
-                            textColor="#fff"
-                            sx={{ fontWeight: "md" }} // mb olib tashlandi
-                          >
-                            {product.productName}
-                          </Typography>
-
-                          <Typography
-                            sx={{
-                              fontWeight: "md",
-                              color: "neutral.300",
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "10px", // icon bilan text orasiga bo‘shliq
-                            }}
-                          >
-                           {product.productViews}
-                            <VisibilityIcon sx={{ fontSize: 25 }} />
-                          </Typography>
-                        </Stack>
-                      </CardContent>
-                      <CardOverflow
-                        sx={{
-                          display: "flex",
-                          gap: 1.5,
-                          py: 1.5,
-                          px: "var(--Card-padding)",
-                          borderTop: "1px solid",
-                          height: "6-px",
-                        }}
-                      >
-                        <Typography
-                          startDecorator={<DescriptionOutlinedIcon />}
-                          textColor="neutral.300"
-                        >
-                         {product.productDesc}
+                      <CardContent>
+                        <Typography textColor="#fff">
+                          {product.productName}
                         </Typography>
-                      </CardOverflow>
+                      </CardContent>
                     </Card>
                   </CssVarsProvider>
                 );
               })
             ) : (
-              <Box className="no-data">Popular products are not available!</Box>
+              <Box className="no-data">
+                Popular products are not available!
+              </Box>
             )}
           </Stack>
         </Stack>

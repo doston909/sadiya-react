@@ -26,13 +26,29 @@
 }
 
 .home-navbar .navbar-container .menu .links {
-    min-width: 700px;
+    width: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 .home-navbar .navbar-container .menu .links .login-button {
+  /* From Uiverse.io by barisdogansutcu */ 
+
+  padding: 17px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  background-color: #3636E2;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+}
+
+.other-navbar .navbar-container .menu  .login-button {
   /* From Uiverse.io by barisdogansutcu */ 
 
   padding: 17px 40px;
@@ -88,6 +104,12 @@ button:active {
 
 .home-navbar a {
     text-decoration: none;
+}
+
+.other-navbar .navbar-container .menu .user-avatar {
+    width: 50px; 
+    height: 50px;
+    border-radius: 24px;
 }
 
 .home-navbar .hover-line a {
@@ -223,94 +245,73 @@ button:active {
 }
 
 .other-navbar {
-    width: 200pxpx;
-    height: 400px;
+    width: 100%;
+    min-height: 500px;
     display: flex;
     background: url("/public/img/fon44.jpg");
     background-size: cover;
+    background-position: center;
 }
 
+/* Konteyner */
 .other-navbar .navbar-container {
-    margin-top: 55px;
+    margin-top: 30px;
+    width: 100%;
 }
 
+/* Asosiy menyu */
 .other-navbar .navbar-container .menu {
-    height: 50px;
+    height: 100px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Logo */
 .other-navbar .navbar-container .menu .brand-logo {
     margin-top: 100px;
     width: 125px;
     height: 125px;
 }
 
+/* 🔹 Linklar bo‘limi — asosiy joy */
 .other-navbar .navbar-container .menu .links {
-    min-width: 700px;
     display: flex;
+    width: auto;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-between;      /* markazga joylashadi */
     align-items: center;
-}
-.other-navbar .navbar-container .menu .links .login-button {
-  padding: 17px 40px;
-  border-radius: 50px;
-  cursor: pointer;
-  border: 0;
-  background-color: white;
-  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-size: 15px;
-  transition: all 0.5s ease;
+                 /* kichik ekranlarda pastga tushadi */
 }
 
-.other-navbar .navbar-container .menu .links button:hover {
-  letter-spacing: 3px;
-  background-color: hsl(261deg 80% 48%);
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
-}
 
-.other-navbar .navbar-container .menu .links button:active {
-  letter-spacing: 3px;
-  background-color: hsl(261deg 80% 48%);
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-  transform: translateY(10px);
-  transition: 100ms;
-}
-
-.other-navbar .navbar-container .menu .user-avatar {
-    width: 50px; 
-    height: 50px;
-    border-radius: 24px;
-}
-
-.other-navbar a {
-    text-decoration: none;
-}
-
+/* Har bir link uchun background va margin */
 .other-navbar .hover-line {
-   background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 15px 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 15px 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 0 10px;              /* 🔹 qo‘shimcha oraliq */
 }
 
-.other-navbar .hover-line a {
-    font-size: 20px;       /* 👈 Matn o‘lchami */
-  font-weight: 500;      /* Ixtiyoriy */
-  font-family: "Poppins", sans-serif;  /* Ixtiyoriy */
-  color: #0e0e64;        /* Sizning rangingiz */
-  text-decoration: none;
-  transition: all 0.3s ease;
+.other-navbar .hover-line:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.03);
 }
+
+/* Link matnlari */
+.other-navbar .hover-line a {
+    font-size: 20px;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    color: #0e0e64;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
 
 .other-navbar .underline {
     display: block;

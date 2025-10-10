@@ -1,9 +1,9 @@
 export enum ProductSize {
     MINI = "MINI",
-    NORMAL = "NORMAL",
+    average = "average",
     BIG = "BIG",
     SET = "SET",
-    PCS = "PCS"
+    PCS = "pcs"
 }
 
 export enum ProductVolume {

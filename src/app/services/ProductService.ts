@@ -15,7 +15,7 @@ class ProductService {
             if(input.productCollection) url += `&productCollection=${input.productCollection}`;
             if(input.search) url += `&search=${input.search}`;
 
-            const result = await axios.get(url);
+            const result = await axios.get(url, { withCredentials: true });
             console.log("getProducts:", result);
 
             return result.data;
@@ -36,6 +36,18 @@ class ProductService {
             throw err;
         }
     }
+
+    public async getPopularProducts(): Promise<Product[]> {
+    try {
+      const url = `${this.path}/product/popular`;
+      const result = await axios.get(url, { withCredentials: true });
+      console.log("getPopularProducts:", result.data);
+      return result.data;
+    } catch (err) {
+      console.log("Error, getPopularProducts:", err);
+      throw err;
+    }
+  }
 }
 
 export default ProductService;

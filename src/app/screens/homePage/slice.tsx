@@ -4,7 +4,6 @@ import { HomePageState } from "../../../lib/types/screen";
 const initialState: HomePageState = {
   popularProducts: [],
   topUsers: [],
-  newProducts: []
 };
 
 const homePageSlice = createSlice({

@@ -102,6 +102,7 @@ function App() {
       loginOpen={loginOpen}
       handleLoginClose={handleLoginClose}
       handleSignupClose={handleSignupClose}
+      setAuthMember={setAuthMember}
       />
     </>
   );

@@ -29,20 +29,20 @@ const productsRetriever = createSelector(retrieveProducts, (products) => ({
 }));
 
 interface ProductsProps {
-    onAdd: (item: CartItem) => void;
+  onAdd: (item: CartItem) => void;
 }
 
 export default function Products(props: ProductsProps) {
   const { onAdd } = props;
   const { setProducts } = actionDispatch(useDispatch());
   const { products } = useSelector(productsRetriever);
-const [productSearch, setProductSearch] = useState<ProductInquiry>({
-        page: 1,
-        limit: 8,
-        order: "createdAt",
-        productCollection: ProductCollection.CREAM,
-        search: "",
-      });
+  const [productSearch, setProductSearch] = useState<ProductInquiry>({
+    page: 1,
+    limit: 8,
+    order: "createdAt",
+    productCollection: ProductCollection.CLEANSING,
+    search: "",
+  });
   const [searchText, setSearchText] = useState<string>("");
   const history = useHistory();
 
@@ -87,7 +87,7 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
 
   const chooseDishHandler = (id: string) => {
     history.push(`/products/${id}`);
-  }
+  };
 
   return (
     <div className={"products"}>
@@ -100,9 +100,10 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
                 className="product-type"
                 placeholder="Type here"
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") searchProductHandler();
+                onChange={(e) => {
+                  setSearchText(e.target.value);
+                  productSearch.search = e.target.value;
+                  setProductSearch({ ...productSearch });
                 }}
                 variant="outlined"
                 size="small"
@@ -129,12 +130,13 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
 
           <Stack className={"dishes-filter-section"}>
             <Stack className={"dishes-filter-box"}>
-              <Button variant={"contained"}  
-              className={"order"}
-              color={
+              <Button
+                variant={"contained"}
+                className={"order"}
+                color={
                   productSearch.order === "createdAt" ? "primary" : "secondary"
-              }
-              onClick={() => searchOrderHandler("createdAt")}
+                }
+                onClick={() => searchOrderHandler("createdAt")}
               >
                 New
               </Button>
@@ -169,7 +171,11 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
           <Stack className={"list-category-section"}>
             <Stack className={"product-category"}>
               <div className={"category-main"}>
-                <Button variant={"contained"} color={productSearch.productCollection === ProductCollection.COLLAGEN
+                <Button
+                  variant={"contained"}
+                  color={
+                    productSearch.productCollection ===
+                    ProductCollection.COLLAGEN
                       ? "primary"
                       : "secondary"
                   }
@@ -180,7 +186,9 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
                   Collagen
                 </Button>
 
-                <Button variant={"contained"} color={
+                <Button
+                  variant={"contained"}
+                  color={
                     productSearch.productCollection ===
                     ProductCollection.VITAMIN
                       ? "primary"
@@ -193,9 +201,10 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
                   Vitamin
                 </Button>
 
-                <Button variant={"contained"} color={
-                    productSearch.productCollection ===
-                    ProductCollection.CREAM
+                <Button
+                  variant={"contained"}
+                  color={
+                    productSearch.productCollection === ProductCollection.CREAM
                       ? "primary"
                       : "secondary"
                   }
@@ -206,9 +215,10 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
                   Cream
                 </Button>
 
-                <Button variant={"contained"} color={
-                    productSearch.productCollection ===
-                    ProductCollection.SPRAY
+                <Button
+                  variant={"contained"}
+                  color={
+                    productSearch.productCollection === ProductCollection.SPRAY
                       ? "primary"
                       : "secondary"
                   }
@@ -218,8 +228,11 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
                 >
                   Spray
                 </Button>
-                <Button variant={"contained"} color={
-                    productSearch.productCollection === ProductCollection.CLEANSING
+                <Button
+                  variant={"contained"}
+                  color={
+                    productSearch.productCollection ===
+                    ProductCollection.CLEANSING
                       ? "primary"
                       : "secondary"
                   }
@@ -235,32 +248,39 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
               {products.length !== 0 ? (
                 products.map((product, index) => {
                   const imagePath = `${serverApi}/${product.productImages[0]}`;
-                  const sizeVolume =
-                    product.productCollection === ProductCollection.CLEANSING ||
-                    ProductCollection.SPRAY ||
-                    ProductCollection.CREAM
-                      ? product.productVolume + " m.l"
-                      : product.productSize + " normal";
+                  const isLiquid = [
+                    ProductCollection.CLEANSING,
+                    ProductCollection.SPRAY,
+                    ProductCollection.CREAM,
+                  ].includes(product.productCollection);
+
+                  const sizeVolume = isLiquid
+                    ? `${product.productVolume} m.l`
+                    : `${product.productSize} `;
                   return (
-                    <Stack key={product._id} className="product-card"
-                      onClick={() => chooseDishHandler(product._id)}>
+                    <Stack
+                      key={product._id}
+                      className="product-card"
+                      onClick={() => chooseDishHandler(product._id)}
+                    >
                       <Stack
                         className="product-img"
                         sx={{ backgroundImage: `url(${imagePath})` }}
                       >
                         <div className="product-sale">{sizeVolume}</div>
                         <div className="btn-vs-view">
-                          <Button className="shop-btn"
-                           onClick={(e) => {
-                            onAdd({
-                              _id: product._id,
-                              quantity: 1,
-                              name: product.productName,
-                              price: product.productPrice,
-                              image: product.productImages[0],
-                            });
-                            e.stopPropagation();
-                          }}
+                          <Button
+                            className="shop-btn"
+                            onClick={(e) => {
+                              onAdd({
+                                _id: product._id,
+                                quantity: 1,
+                                name: product.productName,
+                                price: product.productPrice,
+                                image: product.productImages[0],
+                              });
+                              e.stopPropagation();
+                            }}
                           >
                             <img
                               className="shop-btn-img"
@@ -290,7 +310,7 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
                         </span>
                         <div className="product-number">
                           <MonetizationOnIcon
-                            sx={{ width: "32px", height: "31px" }}
+                            sx={{ width: "25px", height: "31px" }}
                           />
                           {product.productPrice}
                         </div>
@@ -305,7 +325,8 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
           </Stack>
           <Stack spacing={2}>
             <Pagination
-              count={products.length !== 0
+              count={
+                products.length !== 0
                   ? productSearch.page + 1
                   : productSearch.page
               }
@@ -333,7 +354,7 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
       <div className={"brands-logo"}>
         <Container>
           <Stack className="sub">
-            <Box className="subtitle"> Our Partner Brands</Box>
+            <Box className="subtitle"> Our Partner </Box>
           </Stack>
           <Stack className="brand-imgs">
             <Box>

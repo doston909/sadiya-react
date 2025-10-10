@@ -9,7 +9,6 @@ class MemberService {
     this.path = serverApi;
   }
 
-  /** 🔹 Top foydalanuvchilar */
   public async getTopUsers(): Promise<Member[]> {
     try {
       const url = `${this.path}/member/top-users`;
@@ -22,7 +21,6 @@ class MemberService {
     }
   }
 
-  /** 🔹 Bitta do‘kon (shop) — auth user uchun */
   public async getShop(): Promise<Member> {
     try {
       const url = `${this.path}/member/shop`;
@@ -55,7 +53,8 @@ class MemberService {
   public async login(input: LoginInput): Promise<Member> {
     try {
       const url = this.path + "/member/login";
-      const result = await axios.post(url, input, { withCredentials: true });
+      console.log("ffff", url);
+      const result = await axios.post(`${serverApi}/member/login`, input, { withCredentials: true });
       console.log("login:", result);
 
       const member: Member = result.data.member;

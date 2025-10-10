@@ -1,5 +1,8 @@
 .products {
     width: 100%;
+     min-height: 100vh; /* sahifani to‘liq qoplashi uchun */
+ 
+  background-size: cover;
 }
 
 .products .avatar-big-box {
@@ -70,6 +73,9 @@
     display: flex;
     flex-direction: row;
     width: auto;
+     backdrop-filter: blur(10px);
+      background-color: rgba(205, 222, 246, 0.2);
+      border-radius: 16px;
 }
 
 .products-page .products .product-category {
@@ -109,25 +115,43 @@
 
 /* Products */
 .products .list-category-section .product-wrapper {
-    width: auto;
-    margin-top: 14px;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-left: 22px;
-    justify-content: space-between;
+  width: 100%;
+  display: grid;                      /* 🔹 grid layout qo‘llaymiz */
+  grid-template-columns: repeat(4, 1fr); /* 4 ustun doimiy */
+  grid-template-rows: repeat(2, 350px);  /* 2 qator doimiy */
+  gap: 30px;                          /* productlar orasidagi masofa */
+  justify-items: center;              /* markazlash */
+  align-items: start;
+  min-height: 750px;                  /* 🔹 umumiy balandlikni ushlab turadi */
+  margin-top: 40px;
+  margin-bottom: 60px;
+  position: relative;
+  backdrop-filter: blur(10px);
 }
 
 .products .list-category-section .product-wrapper .product-card {
-    width: auto;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    
-
+  width: 270px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease;
 }
+
+.products .list-category-section .product-wrapper .product-card:hover {
+  transform: scale(1.03);
+}
+
+/* Bo‘sh joy uchun “sokin” kartalar */
+.products .list-category-section .product-wrapper .empty-slot {
+  width: 270px;
+  height: 320px;
+  border: 2px dashed #d9d9d9;
+  border-radius: 10px;
+  background: rgba(250, 250, 250, 0.5);
+}
+
+
 
 .products .list-category-section .product-wrapper .product-card .product-img {
     width: 273px;
@@ -209,16 +233,21 @@
 
 
 .products .list-category-section .product-wrapper .product-card .product-desc{
-    margin-top: 18px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin-bottom: 40px;
+ background: linear-gradient(135deg, rgba(255, 192, 203, 0.25), rgba(173, 216, 230, 0.25)); /* pushti-moviy tuman */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
 }
 
 .products .list-category-section .product-wrapper .product-card .product-desc .product-title{
     font-family: Poppins;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: 600;
     line-height: 30px;
     letter-spacing: 0%;
@@ -226,7 +255,7 @@
 }
 
 .products .list-category-section .product-wrapper .product-card .product-desc .product-number{
-    color: rgb(227, 192, 141);
+    color: rgb(95, 48, 225);
     display: flex;
 font-family: Poppins;
 font-size: 24px;
