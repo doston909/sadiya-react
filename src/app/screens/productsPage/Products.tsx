@@ -252,7 +252,6 @@ const [productSearch, setProductSearch] = useState<ProductInquiry>({
                         <div className="btn-vs-view">
                           <Button className="shop-btn"
                            onClick={(e) => {
-                            console.log("BUTTON PRESSED!!!");
                             onAdd({
                               _id: product._id,
                               quantity: 1,
