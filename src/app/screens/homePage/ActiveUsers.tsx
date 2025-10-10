@@ -4,61 +4,55 @@ import { CssVarsProvider, Typography } from "@mui/joy";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
 
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveTopUsers } from "./selector";
+import { serverApi } from "../../../lib/config";
+import { Member } from "../../../lib/types/member";
 
-const activeUsers = [
-  { memberNick: "Dostonbek", memberImage: "img/martin.webp" },
-  { memberNick: "Umarjon", memberImage: "img/justin.webp" },
-  { memberNick: "Gulixon", memberImage: "img/rose.webp" },
-  { memberNick: "Sardorbek", memberImage: "img/nusret.webp" },
-];
+/** REDUX SLICE & SELECTOR **/
+const topUsersRetriever = createSelector(retrieveTopUsers, (topUsers) => ({
+  topUsers,
+}));
 
 export default function ActiveUsers() {
+  const { topUsers } = useSelector(topUsersRetriever);
   return (
-    <div className="homepage">
-      <div className="active-users-frame">
-        <Container>
-        <Stack className="main" alignItems="center">
-            <Box className="category-title">Active Users</Box>
+    <div className={"active-users-frame"}>
+      <Container>
+        <Stack className={"main"}>
+          <Box className={"category-title"}>Active Users</Box>
+          <Stack className={"cards-frame"}>
+            <CssVarsProvider>
+              {topUsers.length !== 0 ? (
+                topUsers.map((member: Member) => {
+                  const imagePath = `${serverApi}/${member.memberImage}`;
 
-            <Stack className="cards-frame">
-              <CssVarsProvider>
-                {activeUsers.length ? (
-                  activeUsers.map((ele, index) => (
+                  return (
                     <Card
-  key={index}
-  variant="outlined"
-  className="card"
-  sx={{
-    backgroundColor: "transparent !important", // 🔹 default holatda
-    transition: "none !important",
-    transform: "none !important",
-    boxShadow: "none !important",
-    "&:hover": {
-      backgroundColor: "transparent !important", // 🔹 hover paytida ham
-      transform: "none !important",
-      boxShadow: "none !important",
-    },
-  }}
->
-
+                      key={member._id}
+                      variant="outlined"
+                      className={"card"}
+                    >
                       <CardOverflow>
-                        <AspectRatio ratio="1">
-                          <img src={ele.memberImage} alt={ele.memberNick} />
+                        <AspectRatio ratio={"1"}>
+                          <img src={imagePath} alt="" />
                         </AspectRatio>
                       </CardOverflow>
-                      <Typography className="member-nickname">
-                        {ele.memberNick}
+                      <Typography className={"member-nickname"}>
+                        {member.memberNick}
                       </Typography>
                     </Card>
-                  ))
-                ) : (
-                  <Box className="no-data">No Active Users!</Box>
-                )}
-              </CssVarsProvider>
-            </Stack>
+                  );
+                })
+              ) : (
+                <Box className="no-data">No Active Users!</Box>
+              )}
+            </CssVarsProvider>
           </Stack>
-        </Container>
-      </div>
+        </Stack>
+      </Container>
     </div>
   );
 }
+

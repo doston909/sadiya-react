@@ -8,6 +8,22 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setProducts } from "./slice";
+import { createSelector } from "reselect";
+import { retrieveProducts } from "./selector";
+import { Product } from "../../../lib/types/product";
+
+/** REDUX SLICE & SELECTOR **/
+const actionDispatch = (dispatch: Dispatch) => ({
+  setProducts: (data: Product[]) => dispatch(setProducts(data)),
+});
+const productsRetriever = createSelector(
+  retrieveProducts,
+  ( products ) => ({ products })
+);
+
 
 const products = [
   { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
@@ -112,7 +128,7 @@ export default function Products() {
                       className="product-img"
                       sx={{ backgroundImage: `url(${product.imagePath})` }}
                     >
-                      <div className="product-sale">QUALITY</div>
+                      <div className="product-sale"></div>
                       <div className="btn-vs-view">
                       <Button className="shop-btn">
                         <img className="shop-btn-img"
