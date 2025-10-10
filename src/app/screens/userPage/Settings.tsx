@@ -68,8 +68,8 @@ export function Settings() {
       setAuthMember(result);
 
       await sweetTopSmallSuccessAlert("Modify successfully!", 700);
-    } catch (err) {
-      console.log(err);
+     } catch (err: any) {
+      console.log(err.response?.data || err.message || err);
       sweetErrorHandling(err).then();
     }
   };

@@ -25,7 +25,7 @@ export default function FinishedOrders() {
             <Box key={order._id} className={"order-main-box"}>
               <Box className={"order-box-scroll"}>
                 {order?.orderItems?.map((item: OrderItem) => {
-                  const product: Product = order.productData.filter(
+                  const product: Product = order?.productData?.filter(
                     (ele: Product) => item.productId === ele._id
                   )[0];
                    const imagePath = product?.productImages?.[0]
