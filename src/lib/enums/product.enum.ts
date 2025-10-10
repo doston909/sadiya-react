@@ -1,5 +1,5 @@
 export enum ProductSize {
-     MINI = "MINI",
+    MINI = "MINI",
     NORMAL = "NORMAL",
     BIG = "BIG",
     SET = "SET",
@@ -29,9 +29,9 @@ export enum ProductStatus {
 }
 
 export enum ProductCollection {
-    CREAM = "CREAM",
-    SPRAY = "SPRAY",
     COLLAGEN = "COLLAGEN",
     VITAMIN = "VITAMIN",
+    CREAM = "CREAM",
+    SPRAY = "SPRAY",
     CLEANSING = "CLEANSING",
 }
