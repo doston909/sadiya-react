@@ -9,7 +9,7 @@ import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import { Message } from "@mui/icons-material";
 import { Messages } from "../../../lib/config";
-import { MemberInput } from "../../../lib/types/member";
+import { MemberInput, LoginInput } from "../../../lib/types/member";
 import MemberService from "../../services/MemberService";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 
@@ -64,6 +64,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const handlePasswordKeyDown = (e: T) => {
     if (e.key === "Enter" && signupOpen) {
       handleSignupRequest().then();
+      } else if (e.key === "Enter" && loginOpen) {
+      handleLoginRequest().then();
     }
   };
 
@@ -82,6 +84,29 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
 
       const member = new MemberService();
       const result = await member.signup(signupInput);
+
+      // Saving Authenticated user
+      handleSignupClose();
+    } catch (err) {
+      console.log(err);
+      handleSignupClose();
+      sweetErrorHandling(err).then();
+    }
+  };
+
+  const handleLoginRequest = async () => {
+    try {
+      const isFulfill =
+        memberNick !== "" && memberPassword !== "";
+      if (!isFulfill) throw new Error(Messages.error3);
+
+      const loginInput: LoginInput = {
+        memberNick: memberNick,
+        memberPassword: memberPassword,
+      };
+
+      const member = new MemberService();
+      const result = await member.login(loginInput);
 
       handleSignupClose();
     } catch (err) {
