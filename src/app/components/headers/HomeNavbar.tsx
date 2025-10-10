@@ -12,6 +12,7 @@ interface HomeNavbarProps {
   onDeleteAll: () => void;
    setSignupOpen: (isOpen: boolean) => void;
   setLoginOpen: (isOpen: boolean) => void;
+  anchorEl: HTMLElement | null;
 }
 
 export default function HomeNavbar(props: HomeNavbarProps) {
