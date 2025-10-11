@@ -11,7 +11,7 @@ export default function Advertisement() {
             playsInline
             data-video-media=""
             >
-                <source type="video/mp4" src="video/fon4.mp4" />
+                <source type="video/mp4" src="video/fon67.mp4" />
             </video>
         </div>
     );

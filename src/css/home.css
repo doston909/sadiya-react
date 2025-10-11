@@ -130,7 +130,7 @@
 .homepage .ads-restaurant-frame {
   position: relative;
   width: 100%;
-  height: 600px; /* butun ekran bo‘ylab */
+  height: 800px; /* butun ekran bo‘ylab */
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -144,7 +144,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 600px;
+  height: 800px;
   object-fit: cover; /* proporsiyani saqlaydi, ekran o‘lchamiga moslashadi */
   object-position: center; /* markazga joylashadi */
   z-index: -1;
@@ -233,7 +233,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(170, 160, 160, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.2);

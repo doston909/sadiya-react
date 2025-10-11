@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { T } from "../../../lib/types/common";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
 import { Fab, Stack, TextField, Button, Typography } from "@mui/material";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
@@ -13,6 +13,7 @@ import { MemberInput, LoginInput, Member } from "../../../lib/types/member";
 import MemberService from "../../services/MemberService";
 import { sweetErrorHandling, sweetTopSmallSuccessAlert } from "../../../lib/sweetAlert";
 import { useGlobals } from "../../hooks/useGlobals";
+import ReactDOM from "react-dom";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -51,15 +52,13 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
-  const [memberImage, setMemberImage] = useState<File | null>(null); // ✅ rasm file uchun state
-  const [previewUrl, setPreviewUrl] = useState<string>(""); // ✅ ko‘rsatish uchun
+  const [memberImage, setMemberImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>(""); 
 
   /** HANDLERS **/
   const handleUsername = (e: T) => setMemberNick(e.target.value);
   const handlePhone = (e: T) => setMemberPhone(e.target.value);
   const handlePassword = (e: T) => setMemberPassword(e.target.value);
-
-  // ✅ Rasm tanlash funksiyasi
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -77,8 +76,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     formData.append("memberNick", memberNick);
     formData.append("memberPhone", memberPhone);
     formData.append("memberPassword", memberPassword);
-
-    // ✅ Agar foydalanuvchi rasm tanlagan bo‘lsa, qo‘shamiz
     if (memberImage) {
       formData.append("memberImage", memberImage);
     }
@@ -89,8 +86,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     setAuthMember(result);
     await sweetTopSmallSuccessAlert("Signup successful!", 1000);
     handleSignupClose();
-
-    // 🔹 Formani tozalaymiz
     setMemberNick("");
     setMemberPhone("");
     setMemberPassword("");
@@ -122,9 +117,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     }
   };
 
-  return (
-    <div>
-      {/* === SIGNUP MODAL === */}
+  return ReactDOM.createPortal(
+    <>
       <Modal
         aria-labelledby="transition-modal-title"
         className={classes.modal}
@@ -201,7 +195,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
         </Fade>
       </Modal>
 
-      {/* === LOGIN MODAL === */}
       <Modal
         aria-labelledby="transition-modal-title"
         className={classes.modal}
@@ -240,6 +233,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
           </Stack>
         </Fade>
       </Modal>
-    </div>
+      </>,
+      document.getElementById("modal-root")!
   );
 }

@@ -358,13 +358,13 @@ export default function Products(props: ProductsProps) {
           </Stack>
           <Stack className="brand-imgs">
             <Box className="brand-img">
-              <img src="/img/asos.jpg" alt="banner" className="brand-img" />
+              <img src="/img/part222.jpg" alt="banner" className="brand-img" />
             </Box>
             <Box className="brand-img">
-              <img src="/img/sweets.webp" alt="banner" className="brand-img" />
+              <img src="/img/partner1.webp" alt="banner" className="brand-img" />
             </Box>
             <Box className="brand-img">
-              <img src="/img/doner.webp" alt="banner" className="brand-img" />
+              <img src="/img/partner55.jpeg" alt="banner" className="brand-img" />
             </Box>
           </Stack>
         </Container>

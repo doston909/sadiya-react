@@ -5,7 +5,7 @@ export const plans = [
 		author: 'Sadiya Cosmetics',
 		date: '30 min ago',
 		location: 'South Korea, Gwangju',
-		img: '/img/discount.webp',
+		img: '/img/event3.jpg',
 	},
 	{
 		title: 'Coming Soon',
@@ -13,7 +13,7 @@ export const plans = [
 		author: 'Sadiya Cosmetics',
 		date: '2 days ago',
 		location: 'South Korea, Gwangju',
-		img: '/img/fresh.webp',
+		img: '/img/event4.jpg',
 	},
 	{
 		title: 'New Project Shop',
@@ -21,7 +21,7 @@ export const plans = [
 		author: 'Sadiya Cosmetics',
 		date: '5 days ago',
 		location: 'South Korea, Gwangju',
-		img: '/img/coming.webp',
+		img: '/img/event1.jpg',
 	},
 	{
 		title: 'Join us on sns',
@@ -29,6 +29,6 @@ export const plans = [
 		author: 'Sadiya Cosmetics',
 		date: 'A week ago',
 		location: 'South Korea, Gwangju',
-		img: '/img/food-city.webp',
+		img: '/img/event6.jpg',
 	},
 ];

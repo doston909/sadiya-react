@@ -28,7 +28,6 @@ function App() {
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-
   /** HANDLERS **/
   const handleSignupClose = () => setSignupOpen(false);
   const handleLoginClose = () => setLoginOpen(false)
@@ -51,61 +50,67 @@ function App() {
   };
 
   return (
-    <>
-   {location.pathname === "/" ? ( 
-        <HomeNavbar cartItems={cartItems}
-         onAdd={onAdd}
-          onRemove={onRemove}
-          onDelete={onDelete}
-          onDeleteAll={onDeleteAll} 
-          setSignupOpen={setSignupOpen}
-          setLoginOpen={setLoginOpen} 
-          anchorEl={anchorEl}
-          handleLogoutClick={handleLogoutClick}
-          handleCloseLogout={handleCloseLogout}
-          handleLogoutRequest={handleLogoutRequest}
-          /> 
-        ) : ( 
-        <OtherNavbar cartItems={cartItems}
-         onAdd={onAdd}
-          onRemove={onRemove}
-          onDelete={onDelete}
-          onDeleteAll={onDeleteAll} 
-          setSignupOpen={setSignupOpen}
-          setLoginOpen={setLoginOpen} 
-          anchorEl={anchorEl}
-          handleLogoutClick={handleLogoutClick}
-          handleCloseLogout={handleCloseLogout}
-          handleLogoutRequest={handleLogoutRequest}
-          />
-        )}
-      <Switch>
-        <Route path="/products">
-         <ProductsPage onAdd={onAdd}/>
-        </Route>
-        <Route path="/orders">
-         <OrdersPage />
-        </Route>
-        <Route path="/member-page">
-         <UserPage />
-        </Route>
-        <Route path="/help">
-        <HelpPage />
-        </Route>
-        <Route path="/">
-         <HomePage />
-        </Route>
-      </Switch>
-      <Footer />
-      <AuthenticationModal
+  <>
+    {/* 🟢 Modalni eng yuqoriga olib chiqdik */}
+    <AuthenticationModal
       signupOpen={signupOpen}
       loginOpen={loginOpen}
       handleLoginClose={handleLoginClose}
       handleSignupClose={handleSignupClose}
       setAuthMember={setAuthMember}
+    />
+
+    {location.pathname === "/" ? ( 
+      <HomeNavbar 
+        cartItems={cartItems}
+        onAdd={onAdd}
+        onRemove={onRemove}
+        onDelete={onDelete}
+        onDeleteAll={onDeleteAll}
+        setSignupOpen={setSignupOpen}
+        setLoginOpen={setLoginOpen}
+        anchorEl={anchorEl}
+        handleLogoutClick={handleLogoutClick}
+        handleCloseLogout={handleCloseLogout}
+        handleLogoutRequest={handleLogoutRequest}
+      /> 
+    ) : ( 
+      <OtherNavbar 
+        cartItems={cartItems}
+        onAdd={onAdd}
+        onRemove={onRemove}
+        onDelete={onDelete}
+        onDeleteAll={onDeleteAll}
+        setSignupOpen={setSignupOpen}
+        setLoginOpen={setLoginOpen}
+        anchorEl={anchorEl}
+        handleLogoutClick={handleLogoutClick}
+        handleCloseLogout={handleCloseLogout}
+        handleLogoutRequest={handleLogoutRequest}
       />
-    </>
-  );
+    )}
+
+    <Switch>
+      <Route path="/products">
+        <ProductsPage onAdd={onAdd} />
+      </Route>
+      <Route path="/orders">
+        <OrdersPage />
+      </Route>
+      <Route path="/member-page">
+        <UserPage />
+      </Route>
+      <Route path="/help">
+        <HelpPage />
+      </Route>
+      <Route path="/">
+        <HomePage />
+      </Route>
+    </Switch>
+
+    <Footer />
+  </>
+);
 }
 
 export default App;

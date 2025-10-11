@@ -2,7 +2,7 @@
   "name": "sadiya-react",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
+ "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@lottiefiles/dotlottie-react": "^0.17.5",
