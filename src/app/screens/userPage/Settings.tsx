@@ -1,6 +1,12 @@
-import { Box } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Paper,
+  Stack,
+} from "@mui/material";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import Button from "@mui/material/Button";
 import { useGlobals } from "../../hooks/useGlobals";
 import { useState } from "react";
 import { MemberUpdateInput } from "../../../lib/types/member";
@@ -12,7 +18,11 @@ import {
 import { Messages, serverApi } from "../../../lib/config";
 import MemberService from "../../services/MemberService";
 
-export function Settings() {
+interface SettingsProps {
+  onClose?: () => void;
+}
+
+function Settings({ onClose }: SettingsProps) {
   const { authMember, setAuthMember } = useGlobals();
   const [memberImage, setMemberImage] = useState<string>(
     authMember?.memberImage
@@ -20,45 +30,45 @@ export function Settings() {
       : "/icons/default-user.svg"
   );
 
-  const [memberUpdateInput, setMemberUpdateInput] = useState<MemberUpdateInput>(
-    {
-      memberNick: authMember?.memberNick,
-      memberPhone: authMember?.memberPhone,
-      memberAddress: authMember?.memberAddress,
-      memberDesc: authMember?.memberDesc,
-      memberImage: authMember?.memberImage,
-    }
-  );
+  const [memberUpdateInput, setMemberUpdateInput] = useState<MemberUpdateInput>({
+    memberNick: authMember?.memberNick,
+    memberPhone: authMember?.memberPhone,
+    memberAddress: authMember?.memberAddress,
+    memberDesc: authMember?.memberDesc,
+    memberImage: authMember?.memberImage,
+  });
 
   /** HANDLERS **/
-  const memberNickHandler = (e: T) => {
-    memberUpdateInput.memberNick = e.target.value;
-    setMemberUpdateInput({ ...memberUpdateInput });
-  };
+  const handleChange =
+    (key: keyof MemberUpdateInput) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setMemberUpdateInput({ ...memberUpdateInput, [key]: e.target.value });
+    };
 
-  const memberPhoneHandler = (e: T) => {
-    memberUpdateInput.memberPhone = e.target.value;
-    setMemberUpdateInput({ ...memberUpdateInput });
-  };
+  const handleImageViewer = (e: T) => {
+    const file = e.target.files[0];
+    const fileType = file.type;
+    const validateImageTypes = ["image/jpg", "image/jpeg", "image/png"];
 
-  const memberAddressHandler = (e: T) => {
-    memberUpdateInput.memberAddress = e.target.value;
-    setMemberUpdateInput({ ...memberUpdateInput });
-  };
+    if (!validateImageTypes.includes(fileType)) {
+      sweetErrorHandling(new Error(Messages.error5));
+      return;
+    }
 
-  const memberDescHandler = (e: T) => {
-    memberUpdateInput.memberDesc = e.target.value;
+    memberUpdateInput.memberImage = file;
     setMemberUpdateInput({ ...memberUpdateInput });
+    setMemberImage(URL.createObjectURL(file));
   };
 
   const handleSubmitButton = async () => {
     try {
       if (!authMember) throw new Error(Messages.error2);
+
       if (
-        memberUpdateInput.memberNick === "" ||
-        memberUpdateInput.memberPhone === "" ||
-        memberUpdateInput.memberAddress === "" ||
-        memberUpdateInput.memberDesc === ""
+        !memberUpdateInput.memberNick ||
+        !memberUpdateInput.memberPhone ||
+        !memberUpdateInput.memberAddress ||
+        !memberUpdateInput.memberDesc
       ) {
         throw new Error(Messages.error3);
       }
@@ -67,100 +77,136 @@ export function Settings() {
       const result = await member.updateMember(memberUpdateInput);
       setAuthMember(result);
 
-      await sweetTopSmallSuccessAlert("Modify successfully!", 700);
-     } catch (err: any) {
+      await sweetTopSmallSuccessAlert("Profile updated successfully!", 700);
+
+      // ✅ Modalni yopamiz
+      if (onClose) onClose();
+    } catch (err: any) {
       console.log(err.response?.data || err.message || err);
       sweetErrorHandling(err).then();
     }
   };
 
-  const handleImageViewer = (e: T) => {
-    const file = e.target.files[0];
-    const fileType = file.type,
-      validateImageTypes = ["image/jpg", "image/jpeg", "image/png"];
-
-    if (!validateImageTypes.includes(fileType)) {
-      sweetErrorHandling(new Error(Messages.error5));
-      return;
-    } else {
-      if (file) {
-        memberUpdateInput.memberImage = file;
-        setMemberUpdateInput({ ...memberUpdateInput });
-        setMemberImage(URL.createObjectURL(file));
-      }
-    }
-  };
-
   return (
-    <Box className={"settings"}>
-      <Box className={"member-media-frame"}>
-        <img src={memberImage} className={"mb-image"} />
-        <div className={"media-change-box"}>
-          <span>Upload image</span>
-          <p>JPG, JPEG, PNG formats only!</p>
-          <div className={"up-del-box"}>
-            <Button component="label">
-              <CloudDownloadIcon />
-              <input type="file" hidden onChange={handleImageViewer} />
-            </Button>
-          </div>
-        </div>
-      </Box>
-      <Box className={"input-frame"}>
-        <div className={"long-input"}>
-          <label className={"spec-label"}>Username</label>
-          <input
-            className={"spec-input mb-nick"}
-            type="text"
-            placeholder={authMember?.memberNick}
-            value={memberUpdateInput.memberNick}
-            name="memberNick"
-            onChange={memberNickHandler}
+    <Paper
+      elevation={4}
+      sx={{
+        p: 4,
+        borderRadius: "20px",
+        background: "rgba(255,255,255,0.85)",
+        backdropFilter: "blur(10px)",
+        boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+      }}
+    >
+      <Stack direction="row" alignItems="center" gap={3} sx={{ mb: 4 }}>
+        <Box
+          sx={{
+            width: 120,
+            height: 120,
+            borderRadius: "50%",
+            overflow: "hidden",
+            boxShadow: "0 5px 15px rgba(0,0,0,0.15)",
+            border: "3px solid #90caf9",
+          }}
+        >
+          <img
+            src={memberImage}
+            alt="user-avatar"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-        </div>
-      </Box>
-      <Box className={"input-frame"}>
-        <div className={"short-input"}>
-          <label className={"spec-label"}>Phone</label>
-          <input
-            className={"spec-input mb-phone"}
-            type="text"
-            placeholder={authMember?.memberPhone ?? "no phone"}
-            value={memberUpdateInput.memberPhone}
-            name="memberPhone"
-            onChange={memberPhoneHandler}
+        </Box>
+
+        <Stack spacing={1}>
+          <Typography fontWeight={600}>Upload Image</Typography>
+          <Typography variant="body2" color="text.secondary">
+            JPG, JPEG, PNG formats only
+          </Typography>
+          <Button
+            variant="contained"
+            component="label"
+            startIcon={<CloudDownloadIcon />}
+            sx={{
+              borderRadius: "25px",
+              textTransform: "none",
+              fontWeight: 500,
+              background: "linear-gradient(135deg, #42a5f5, #1e88e5)",
+              "&:hover": {
+                background: "linear-gradient(135deg, #2196f3, #1565c0)",
+              },
+            }}
+          >
+            Upload
+            <input type="file" hidden onChange={handleImageViewer} />
+          </Button>
+        </Stack>
+      </Stack>
+
+      <Stack spacing={3}>
+        <TextField
+          label="Username"
+          fullWidth
+          value={memberUpdateInput.memberNick ?? ""}
+          onChange={handleChange("memberNick")}
+          variant="outlined"
+          InputProps={{ sx: { borderRadius: "12px" } }}
+        />
+        <Stack direction="row" spacing={2}>
+          <TextField
+            label="Phone"
+            fullWidth
+            value={memberUpdateInput.memberPhone ?? ""}
+            onChange={handleChange("memberPhone")}
+            variant="outlined"
+            InputProps={{ sx: { borderRadius: "12px" } }}
           />
-        </div>
-        <div className={"short-input"}>
-          <label className={"spec-label"}>Address</label>
-          <input
-            className={"spec-input  mb-address"}
-            type="text"
-            placeholder={
-              authMember?.memberAddress
-                ? authMember.memberAddress
-                : "no address"
-            }
-            value={memberUpdateInput.memberAddress}
-            name="memberAddress"
-            onChange={memberAddressHandler}
+          <TextField
+            label="Address"
+            fullWidth
+            value={memberUpdateInput.memberAddress ?? ""}
+            onChange={handleChange("memberAddress")}
+            variant="outlined"
+            InputProps={{ sx: { borderRadius: "12px" } }}
           />
-        </div>
+        </Stack>
+        <TextField
+          label="Description"
+          fullWidth
+          multiline
+          rows={4}
+          value={memberUpdateInput.memberDesc ?? ""}
+          onChange={handleChange("memberDesc")}
+          variant="outlined"
+          InputProps={{ sx: { borderRadius: "12px" } }}
+        />
+      </Stack>
+
+      <Box sx={{ textAlign: "center", mt: 4 }}>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={handleSubmitButton}
+          sx={{
+            borderRadius: "30px",
+            px: 6,
+            py: 1.5,
+            fontSize: "16px",
+            fontWeight: 600,
+            textTransform: "none",
+            background: "linear-gradient(135deg, #4caf50, #2e7d32)",
+            boxShadow: "0 8px 20px rgba(46,125,50,0.3)",
+            "&:hover": {
+              transform: "scale(1.05)",
+              boxShadow: "0 8px 25px rgba(46,125,50,0.4)",
+            },
+            transition: "all 0.3s ease",
+          }}
+        >
+          Save Changes
+        </Button>
       </Box>
-      <Box className={"input-frame"}>
-        <div className={"long-input"}>
-          <label className={"spec-label"}>Description</label>
-          <textarea
-            className={"spec-textarea mb-description"}
-            placeholder={"no description"}
-            value={"no description"}
-            name="memberDesc"
-          />
-        </div>
-      </Box>
-      <Box className={"save-box"}>
-        <Button variant={"contained"}>Save</Button>
-      </Box>
-    </Box>
+    </Paper>
   );
 }
+
+export default Settings;
+

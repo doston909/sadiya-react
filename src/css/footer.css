@@ -1,5 +1,5 @@
 .foot-desc-txt {
-  margin-top: 22px;
+  margin-top: 5px;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
@@ -71,7 +71,7 @@
 }
 
 .copyright-txt {
-  margin-top: 10px;
+ 
   font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
@@ -93,7 +93,6 @@
   transform: scaleX(1);
 }
 
-/* From Uiverse.io by Praashoo7 */ 
 .main_back {
   position: absolute;
   border-radius: 10px;

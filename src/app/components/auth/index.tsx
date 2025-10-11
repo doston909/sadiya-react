@@ -4,13 +4,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { Fab, Stack, TextField } from "@mui/material";
+import { Fab, Stack, TextField, Button, Typography } from "@mui/material";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
-import { Messages } from "../../../lib/config";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Messages, serverApi } from "../../../lib/config";
 import { MemberInput, LoginInput, Member } from "../../../lib/types/member";
 import MemberService from "../../services/MemberService";
-import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { sweetErrorHandling, sweetTopSmallSuccessAlert } from "../../../lib/sweetAlert";
 import { useGlobals } from "../../hooks/useGlobals";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    borderRadius: "10px",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 2, 2),
+    padding: theme.spacing(3, 4, 3),
   },
 }));
 
@@ -45,63 +46,78 @@ interface AuthenticationModalProps {
 }
 
 export default function AuthenticationModal(props: AuthenticationModalProps) {
-  const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
+  const { signupOpen, loginOpen, handleSignupClose, handleLoginClose, setAuthMember } = props;
   const classes = useStyles();
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
-  const { setAuthMember } = useGlobals();
+  const [memberImage, setMemberImage] = useState<File | null>(null); // ✅ rasm file uchun state
+  const [previewUrl, setPreviewUrl] = useState<string>(""); // ✅ ko‘rsatish uchun
 
   /** HANDLERS **/
   const handleUsername = (e: T) => setMemberNick(e.target.value);
   const handlePhone = (e: T) => setMemberPhone(e.target.value);
   const handlePassword = (e: T) => setMemberPassword(e.target.value);
 
-  const handlePasswordKeyDown = (e: T) => {
-    if (e.key === "Enter" && signupOpen) handleSignupRequest();
-    else if (e.key === "Enter" && loginOpen) handleLoginRequest();
+  // ✅ Rasm tanlash funksiyasi
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setMemberImage(file);
+      setPreviewUrl(URL.createObjectURL(file)); // ko‘rsatish uchun
+    }
   };
 
   const handleSignupRequest = async () => {
-    try {
-      if (!memberNick || !memberPhone || !memberPassword)
-        throw new Error(Messages.error3);
+  try {
+    if (!memberNick || !memberPhone || !memberPassword)
+      throw new Error(Messages.error3);
 
-      const signupInput: MemberInput = {
-        memberNick,
-        memberPhone,
-        memberPassword,
-      };
+    const formData = new FormData();
+    formData.append("memberNick", memberNick);
+    formData.append("memberPhone", memberPhone);
+    formData.append("memberPassword", memberPassword);
 
-      const memberService = new MemberService();
-      const result = await memberService.signup(signupInput);
-
-      setAuthMember(result); // ✅ foydalanuvchini global statega yozadi
-      handleSignupClose();
-    } catch (err) {
-      console.log(err);
-      sweetErrorHandling(err);
+    // ✅ Agar foydalanuvchi rasm tanlagan bo‘lsa, qo‘shamiz
+    if (memberImage) {
+      formData.append("memberImage", memberImage);
     }
-  };
+
+    const memberService = new MemberService();
+    const result = await memberService.signup(formData); // 👈 formData jo‘natamiz
+
+    setAuthMember(result);
+    await sweetTopSmallSuccessAlert("Signup successful!", 1000);
+    handleSignupClose();
+
+    // 🔹 Formani tozalaymiz
+    setMemberNick("");
+    setMemberPhone("");
+    setMemberPassword("");
+    setMemberImage(null);
+    setPreviewUrl("");
+  } catch (err) {
+    sweetErrorHandling(err);
+  }
+};
+
 
   const handleLoginRequest = async () => {
     try {
       if (!memberNick || !memberPassword)
         throw new Error(Messages.error3);
 
-      const loginInput: LoginInput = {
-        memberNick,
-        memberPassword,
-      };
-
+      const loginInput: LoginInput = { memberNick, memberPassword };
       const memberService = new MemberService();
       const result = await memberService.login(loginInput);
 
-      setAuthMember(result); // ✅ bu joy eng muhim
-      setMemberPassword("");
+      setAuthMember(result);
+      await sweetTopSmallSuccessAlert("Login successful!", 1000);
       handleLoginClose();
+
+      setMemberNick("");
+      setMemberPassword("");
     } catch (err) {
-      console.log("Login error:", err);
       sweetErrorHandling(err);
     }
   };
@@ -119,31 +135,61 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
         BackdropProps={{ timeout: 500 }}
       >
         <Fade in={signupOpen}>
-          <Stack className={classes.paper} direction="row" sx={{ width: "800px" }}>
+          <Stack className={classes.paper} direction="row" sx={{ width: "820px" }}>
             <ModalImg src={"/img/auth.webp"} alt="signup" />
-            <Stack sx={{ marginLeft: "69px", alignItems: "center" }}>
+            <Stack sx={{ ml: "60px", alignItems: "center", width: "100%" }}>
               <h2>Signup Form</h2>
+
+              {/* ✅ Profil rasmi tanlash */}
+              <Stack alignItems="center" spacing={2} sx={{ mt: 1, mb: 2 }}>
+                {previewUrl ? (
+                  <img
+                    src={previewUrl}
+                    alt="preview"
+                    style={{
+                      width: 80,
+                      height: 80,
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      border: "2px solid #90caf9",
+                    }}
+                  />
+                ) : (
+                  <Typography variant="body2" color="text.secondary">
+                    (Optional) Add your profile picture
+                  </Typography>
+                )}
+                <Button
+                  variant="outlined"
+                  component="label"
+                  startIcon={<CloudUploadIcon />}
+                  sx={{ borderRadius: "20px", textTransform: "none" }}
+                >
+                  Upload Image
+                  <input hidden type="file" accept="image/*" onChange={handleImageSelect} />
+                </Button>
+              </Stack>
+
               <TextField
-                sx={{ marginTop: "7px" }}
-                label="username"
+                sx={{ mb: 2 }}
+                label="Username"
                 variant="outlined"
                 onChange={handleUsername}
               />
               <TextField
-                sx={{ my: "17px" }}
-                label="phone number"
+                sx={{ mb: 2 }}
+                label="Phone number"
                 variant="outlined"
                 onChange={handlePhone}
               />
               <TextField
-                label="password"
+                label="Password"
                 variant="outlined"
                 type="password"
                 onChange={handlePassword}
-                onKeyDown={handlePasswordKeyDown}
               />
               <Fab
-                sx={{ marginTop: "30px", width: "120px" }}
+                sx={{ mt: 3, width: "130px" }}
                 variant="extended"
                 color="primary"
                 onClick={handleSignupRequest}
@@ -168,26 +214,25 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
         <Fade in={loginOpen}>
           <Stack className={classes.paper} direction="row" sx={{ width: "700px" }}>
             <ModalImg src={"/img/auth.webp"} alt="login" />
-            <Stack sx={{ marginLeft: "65px", marginTop: "25px", alignItems: "center" }}>
+            <Stack sx={{ ml: "65px", mt: "25px", alignItems: "center" }}>
               <h2>Login Form</h2>
               <TextField
-                label="username"
+                label="Username"
                 variant="outlined"
                 sx={{ my: "10px" }}
-                onChange={handleUsername} // ✅ Ulandi
+                onChange={(e) => setMemberNick(e.target.value)}
               />
               <TextField
-                label="password"
+                label="Password"
                 variant="outlined"
                 type="password"
-                onChange={handlePassword} // ✅ Ulandi
-                onKeyDown={handlePasswordKeyDown}
+                onChange={(e) => setMemberPassword(e.target.value)}
               />
               <Fab
-                sx={{ marginTop: "27px", width: "120px" }}
+                sx={{ mt: 3, width: "120px" }}
                 variant="extended"
                 color="primary"
-                onClick={handleLoginRequest} // ✅ Login bosilganda ishlaydi
+                onClick={handleLoginRequest}
               >
                 <LoginIcon sx={{ mr: 1 }} /> Login
               </Fab>
@@ -198,4 +243,3 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
     </div>
   );
 }
-

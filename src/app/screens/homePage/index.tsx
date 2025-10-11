@@ -30,27 +30,17 @@ export default function HomePage() {
   const { setPopularProducts, setTopUsers } = actionDispatch(useDispatch());
 
   useEffect(() => {
-    // Backend server data fetch
-    const product = new ProductService();
-    product.getProducts({
-      page: 1,
-      limit: 4,
-      order: "productViews",
-      productCollection: ProductCollection.CREAM,
-    })
-    .then((data) => {
-      setPopularProducts(data);
-    })
-    .catch((err) => console.log(err));
-    product.getProducts({
-      page: 1,
-      limit: 4,
-      order: "createdAt",
-      productCollection: ProductCollection.CREAM,
-    })
-    .then((data) => {
-    })
-    .catch((err) => console.log(err));
+    const productService = new ProductService();
+    productService
+      .getPopularProducts()
+      .then((data) => setPopularProducts(data))
+      .catch((err) => console.log("Popular products error:", err));
+
+    const memberService = new MemberService();
+    memberService
+      .getTopUsers()
+      .then((data) => setTopUsers(data))
+      .catch((err) => console.log("Top users error:", err));
   }, []);
 
   return (

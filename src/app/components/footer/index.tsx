@@ -8,7 +8,9 @@ const Footers = styled.div`
   width: 100%;
   height: 590px;
   display: flex;
-  background: #bcf9efff;
+background: rgba(88, 74, 74, 0.1);
+backdrop-filter: blur(8px);
+color: #f0f0f0
   background-size: cover;
 `;
 
@@ -20,26 +22,32 @@ export default function Footer() {
       <Container>
         <Stack flexDirection={"row"} sx={{ mt: "50px" }}>
           <Stack flexDirection={"column"} style={{ width: "340px" }}>
-             <Box sx={{
-    width: 200,
-    height: 100,
-    backgroundImage: 'url("/img/sadiiyya.png")',
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    borderRadius: "50%",
-  }}></Box>
-
+            <Box
+              sx={{
+                width: 250,
+                height: 150,
+                backgroundImage: 'url("/img/sadiiyya.png")',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "50%",
+              }}
+            ></Box>
             <Box className={"foot-desc-txt"}>
-              Focusing on natural beauty and modern skincare, Sadiya Cosmetic aims to bring confidence and elegance back to every woman.
-With a perfect harmony of science and nature, Sadiya Cosmetic creates a unique experience that highlights your natural glow.
-            </Box> <hr></hr><hr></hr>
-           
-  <div className="card-social">
+              Focusing on natural beauty and modern skincare, Sadiya Cosmetic
+              aims to bring confidence and elegance back to every woman. With a
+              perfect harmony of science and nature, Sadiya Cosmetic creates a
+              unique experience that highlights your natural glow.
+            </Box>{" "}
+            <hr></hr>
+            <hr></hr>
+            <div className="card-social">
               <span>Social</span>
-              <a className="social-link"
-              href="https://t.me/sadiyakoreakosmetik"
-              target="_blank"
-  rel="noopener noreferrer">
+              <a
+                className="social-link"
+                href="https://t.me/sadiyakoreakosmetik"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   fill="#0088cc"
                   xmlns="http://www.w3.org/2000/svg"
@@ -158,19 +166,19 @@ With a perfect harmony of science and nature, Sadiya Cosmetic creates a unique e
                 >
                   <Box flexDirection={"row"} className={"find-us"}>
                     <span>L.</span>
-                    <div>Downtown, Dubai</div>
+                    <div>Gwangju, South Korea</div>
                   </Box>
                   <Box className={"find-us"}>
                     <span>P.</span>
-                    <div>+971 4 554 7777</div>
+                    <div>010-7640-9293</div>
                   </Box>
                   <Box className={"find-us"}>
                     <span>E.</span>
-                    <div>devexuz@gmail.com</div>
+                    <div>ahmadalievd384@gmail.com</div>
                   </Box>
                   <Box className={"find-us"}>
                     <span>H.</span>
-                    <div>Visit 24 hours</div>
+                    <div>Use online 24 hours</div>
                   </Box>
                 </Box>
               </Box>
@@ -186,7 +194,7 @@ With a perfect harmony of science and nature, Sadiya Cosmetic creates a unique e
           sx={{ mt: "30px" }}
         ></Stack>
         <Stack className={"copyright-txt"}>
-          © Copyright Devex Global, All rights reserved.
+          © Copyright Sadiya Cosmetics, All rights reserved.
         </Stack>
       </Container>
     </Footers>

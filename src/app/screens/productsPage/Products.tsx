@@ -354,14 +354,11 @@ export default function Products(props: ProductsProps) {
       <div className={"brands-logo"}>
         <Container>
           <Stack className="sub">
-            <Box className="subtitle"> Our Partner </Box>
+            <Box className="subtitle"> Our Partners </Box>
           </Stack>
           <Stack className="brand-imgs">
-            <Box>
-              <img src="/img/gurme.webp" alt="banner" className="brand-img" />
-            </Box>
             <Box className="brand-img">
-              <img src="/img/seafood.webp" alt="banner" className="brand-img" />
+              <img src="/img/asos.jpg" alt="banner" className="brand-img" />
             </Box>
             <Box className="brand-img">
               <img src="/img/sweets.webp" alt="banner" className="brand-img" />

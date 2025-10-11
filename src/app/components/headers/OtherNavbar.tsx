@@ -1,4 +1,12 @@
-import { Box, Button, Container, ListItemIcon, Menu, MenuItem, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Stack,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
 import { CartItem } from "../../../lib/types/search";
@@ -22,7 +30,7 @@ interface OtherNavbarProps {
 
 export default function OtherNavbar(props: OtherNavbarProps) {
   const {
-   cartItems,
+    cartItems,
     onAdd,
     onRemove,
     onDelete,
@@ -34,17 +42,17 @@ export default function OtherNavbar(props: OtherNavbarProps) {
     handleCloseLogout,
     handleLogoutRequest,
   } = props;
-  const {authMember} = useGlobals();
+  const { authMember } = useGlobals();
   return (
     <div className="other-navbar">
       <Container className="navbar-container">
         <Stack className="menu">
           <Box>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/sadiya.jpeg" />
+              <img className="brand-logo" src="/img/sadiiyya.png" />
             </NavLink>
           </Box>
-          <Stack className="links" direction="row" spacing={3} >
+          <Stack className="links" direction="row" sx={{ gap: "10px" }}>
             <Box className={"hover-line"}>
               <NavLink to="/">Home</NavLink>
             </Box>

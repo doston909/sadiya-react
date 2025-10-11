@@ -57,7 +57,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
         <Stack className="menu">
           <Box>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/sadiya.jpeg" />
+              <img className="brand-logo" src="/img/sadiiyya.png" />
             </NavLink>
           </Box>
           <Stack className="links">
@@ -169,9 +169,9 @@ export default function HomeNavbar(props: HomeNavbarProps) {
         <Stack className={"header-frame"}>
           <Stack className={"detail"}>
             <Box className={"head-main-txt"}>
-              World's Most Delicious Cousine
+              Natural, tested products
             </Box>
-            <Box className={"wel-txt"}>The Choice, not just a choice</Box>
+            <Box className={"wel-txt"}>We care about your beauty</Box>
             <Box className={"service-txt"}>24 hours online service</Box>
             <Box className={"signup"}>
               {!authMember ? (
@@ -179,6 +179,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                   variant={"contained"}
                   className={"signup-button"}
                   onClick={() => setSignupOpen(true)}
+                  
                 >
                   SIGN UP
                 </Button>

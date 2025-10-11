@@ -12,6 +12,7 @@
    width: 100%;
    height: 200px;
    border-radius: 300px;
+   background-color: #e1ece3;
    
 }
 
@@ -40,17 +41,17 @@
    font-style: normal;
    font-weight: 600;
    line-height: 80px;
-   color: #ffffff;
+   color: #61da6f;
 }
 
 .homepage .static-frame .info .static-box .static-text {
    text-align: center;
    font-family: Poppins;
-   font-size: 20px;
+   font-size: 26px;
    font-style: normal;
    font-weight: 500;
    line-height: 30px;
-   color: #ffffff;
+   color: #101010;
 }
 
 /** POPULAR DISHES **/
@@ -125,8 +126,6 @@
 }
 
 
-/** ADVERTISEMENT **/
-
 /* === ADVERTISEMENT === */
 .homepage .ads-restaurant-frame {
   position: relative;
@@ -140,7 +139,6 @@
   z-index: 0;
 }
 
-/* Video o‘zi */
 .homepage .ads-restaurant-frame .ads-video {
   position: absolute;
   top: 0;
@@ -174,17 +172,9 @@
   width: 100%;
   height: 745px;
   display: flex;
- 
-
-  /* 🔽 Yengil shaffof qatlam */
-  background: rgba(231, 181, 248, 0.35); /* #9d6ba7 ning yarim shaffof varianti */
-
-  /* 🔽 Blur effekti */
+  background: rgba(231, 181, 248, 0.35); 
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* Safari uchun */
-
-  /* 🔽 Optional — ichidagi elementlar ko‘rinsin */
- 
+  -webkit-backdrop-filter: blur(12px); 
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
@@ -192,24 +182,22 @@
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  align-items: center;     
+  justify-content: flex-start; 
 }
 
 .homepage .active-users-frame .main .category-title {
-  margin-top: 70px;
+  margin-top: 50px;       /* ✅ yuqoriga joylashadi */
   width: 100%;
   height: 100px;
   text-align: center;
   font-family: "Dancing Script";
-  font-style: normal;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
   font-weight: 700;
   font-size: 36px;
   line-height: 43px;
+  display: flex;
+  justify-content: center; /* ✅ gorizontal markaz */
+  align-items: center;     /* ✅ vertikal markaz */
 }
 
 .homepage .active-users-frame .cards-frame {
@@ -237,30 +225,6 @@
   backdrop-filter: none;
 }
 
-
-/* === MEMBER NAME === */
-
-.homepage .active-users-frame .main .member-nickname {
-  position: absolute;                /* rasm ustiga joylashadi */
-  bottom: 0;                         /* pastdan boshlanadi */
-  left: 0;
-  width: 100%;                       /* kartaning pastki qismini to‘liq egallaydi */
-  height: 12%;                       /* pastki 1/4 qism */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 18px;
-  font-weight: 500;
-  color: #fff;
-
-  /* 🔽 blur panel effekti */
-  background: rgba(0, 0, 0, 0.35);   /* qoramtir shaffof qatlam */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom-left-radius: 20px;   /* pastki burchaklarni moslashtir */
-  border-bottom-right-radius: 20px;
-}
 
 /* === OUR SERVICE === */
 .homepage .our-service-frame {
